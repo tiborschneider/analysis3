@@ -85,7 +85,7 @@ $$\ex{u_x + u_y = 2u + 1 \quad u(x,0) = 0 \qquad a = 1, \quad b = 1, \quad c = 2
 \begin{enumerate}
 
 \item write the characteristic equation and parametric initial condition (for the initial condition, substitute $s$ for $x$ or $y$, depending on the initial condition.)
-$$\pdif{x}{t}(t,s) = a(x,y,u) \quad \pdif{y}{t}(t,s) = a(x,y,u) \quad \pdif{u}{t}(t,s) = c(x,y,u)$$
+$$\pdif{x}{t}(t,s) = a(x,y,u) \quad \pdif{y}{t}(t,s) = b(x,y,u) \quad \pdif{u}{t}(t,s) = c(x,y,u)$$
 $$\ex{x_t = 1 \quad y_t = 1 \quad u_t = 2u + 1 \qquad x(0,s) = s \qquad y(0,s) = 0 \qquad u(0,s) = 0}$$
 
 \item solve the characteristic equation (by simple integrating or by solving the ODE)
@@ -345,6 +345,10 @@ Then, setting $t=0$, we can see, that $f(x)$ is expressed as a Fourier series.
 $$u_n(x,t) = B_n \sin \left(\frac{n \pi}{L} x\right) e^{-\left(\frac{n\pi}{L}\right)^2 \kappa t}$$
 $$u(x,t) = \sum_{n=1}^{N}B_n \sin \left(\frac{n\pi}{L} x \right) e^{-\left(\frac{n \pi}{L}\right)^2 \kappa t}, \quad f(x) = \sum_{n=1}^{N} B_n \sin \left(\frac{n\pi}{L} x \right)$$
 
+\textbf{Maximum Principle} The solution to the heat equation in 
+$$Q_T = \begin{set}{(x,y,z) \in D, 0 < t \leq T}\end{set}$$
+obtains it's maximum and minimum on the boundary $\partial Q_T$.
+
 \subsubsection{Wave Equation}
 
 An other example is the wave equation. $x$ is restricted to a certain range. 
@@ -439,6 +443,7 @@ $$\min_{\partial D} u \leq u(x,y) \leq \max_{\partial D} u$$
 \textbf{Strong maximum principle}: if $u$ attains it's maximum (or minimum) value inside $D$, then $u$ is constant.
 
 \textbf{Mean Value principle}: Let $B_R(x_0,y_0) \subseteq D$ be a circular region with radius $R$ and centered at $(x_0,y_0)$ completely contained in $D$. The function $u$ is harmonic if and only if:
+$$u(x_0,y_0) = \frac{1}{2\pi R} \oint_{\partial B_R} u(x(s), y(s)) ds$$
 $$u(x_0,y_0) = \frac{1}{2\pi} \int_0^{2\pi} u(x_0 + R \cos \theta, y_0 + R \sin \theta) d\theta$$
 
 \textbf{Uniqueness of solutions}: Let $u$ solve the equation $\Delta u = F$ inside $D$ with the boundary condition $u(x,y) = g(x,y), \ (x,y) \in \partial D$, then $u$ is unique
@@ -482,7 +487,7 @@ Using this basis ($\sinh$), we have achieved that the term with $A_n$ is zero at
 	\textbf{Neumann}: \\
 	$\fmm f(x) = u_x(0,y) = \sum_n \frac{n\pi}{d} B_n \sinh\left(-\frac{n\pi}{d} b\right) \cos\left(\frac{n\pi}{d} y\right) = \sum_n \beta_n \cos\left(\frac{n\pi}{d} y\right)$ \\
 	$\fmm g(x) = u_x(b,y) = \sum_n \frac{n\pi}{d} A_n \sinh\left(+\frac{n\pi}{d} b\right) \cos\left(\frac{n\pi}{d} y\right) = \sum_n \alpha_n \cos\left(\frac{n\pi}{d} y\right)$ \\
-	$\fmm \beta_n = \frac{2}{d} \int_{0}^{d} f(y) \cos\left(\frac{n\pi}{d} y\right) dy, \quad \alpha_n = \frac{2}{d} \int_0^b g(y) \cos\left(\frac{n\pi}{d} y\right)dy$ \\ \midrule
+	$\fmm \beta_n = \frac{2}{d} \int_{0}^{d} f(y) \cos\left(\frac{n\pi}{d} y\right) dy, \quad \alpha_n = \frac{2}{d} \int_0^b g(y) \cos\left(\frac{n\pi}{d} y\right)dy$ \\ 
 	
 \end{tabular}
 
@@ -501,7 +506,7 @@ If we have a circular boundary with radius $\hat{r}$, we have $u(r,\phi)$ where 
 
 $$\Delta u = u_{rr} + \frac1r u_r + \frac{1}{r^2} u_{\phi \phi} = 0, \quad u(r,\phi) = R(r) \cdot \Phi(\phi), \ \Phi(-\pi) = \Phi(\pi)$$
 $$\frac{r^2 R''}{R} + \frac{r R'}{R} = -\frac{\Phi''}{\Phi} = \lambda \ \Rightarrow \ \Phi'' = -\lambda \Phi, \quad R'' + \frac{R'}{r} - \frac{\lambda R}{r^2} = 0$$
-$$\Phi(\phi) = A \cos(n \phi) + B \sin(n \phi), \ R(r) = r^n, \ n \in \mathbb{N}_0, \ \lambda = n^2$$
+$$\Phi(\phi) = A \cos(n \phi) + B \sin(n \phi), \ R_n(r) = r^n, \ n \in \mathbb{N}_0, \ \lambda = n^2$$
 $$u(r,\phi) = \frac{A_0}{2} + \sum_{n \in \mathbb{N}} r^n \left(A_n \cos(n\phi) + b_n \sin(n\phi)\right)$$
 $$u(\hat r, \phi) = h(\phi) = \frac{A_0}{2} + \sum_{n \in \mathbb{N}} \hat r^n \left(A_n \cos(n\phi) + b_n \sin(n\phi)\right)$$
 $$A_n = \frac{1}{\hat r^n \pi} \int_{-\pi}^{\pi} h(\phi) \cos(n\phi) d\phi, \quad B_n = \frac{1}{\hat r^n\pi} \int_{-\pi}^{\pi} h(\phi) \sin(n\phi) d\phi $$
@@ -553,7 +558,7 @@ $$y_h(x) = C_1 e^{\lambda_1 x} + C_2 e^{\lambda_2 x} + C_3 e^{\lambda_3 x} + \cd
 If we have multiple roots that are the same, we need to multiply the second exponential factor by $x$, the third by $x^2$ and so on. 
 $$y_h(x) = C_1 e^{-\lambda x} + C_2 x e^{-\lambda x} + C_3 x^2 e^{-\lambda x} \cdots$$
 
-If we have two complex roots, e.g. $\lambda = a + ib$, then we write the following:
+If we have two complex roots, e.g. $\lambda = a \pm ib$, then we write the following:
 $$y_h(x) = C_1 e^{a t} \cos(bt) + C_2 e^{a t} \sin(bt)$$ 
 
 For the particular solution $y_p$, we use the following ansatz:
