@@ -135,7 +135,7 @@ $$x(t,s) = s + t \cdot h(s), \quad y(t,s) = t, \quad u(t,s) = h(s) \;\Rightarrow
 
 The solution is not well defined at points where characteristic curves intersect. From an algebraic perspective:
 
-$$u_x = \frac{h'}{1 + y h'} \qquad y_c = \inf \left\{- \frac{1}{h'(s)} \right\}$$
+$$u_x = \frac{h'}{1 + y h'} \qquad y_c = -\frac{1}{\inf \left\{ h'(s) \right\}}$$
 
 The classical solution is not defined for $y > y_c$. To extend the solution beyond $y_c$. The solution $u$ has discontinuities at $u(\gamma(y),y)$. $u^-$ and $u^+$ is the value of $u$ when we approach the curve $\gamma$ from the left and from the right, respectively. Then, we get:
 
@@ -175,8 +175,8 @@ $$\gamma(y) = \frac{1}{2} (u^- + u^+)$$
 If $h(s)$ (the initial condition) is a piecewise function with a negative jump at $x_0$, we can find the solution the following way. First, rewrite the equation:
 
 $$u_y + u u_x = 0, \quad u(x,0) = h(x) = \begin{case}u^- & \cif x < x_0 \\ u^+ & \cif x > x_0\end{case}$$
-$$\pdif{}{x} u + \pdif{}{y} \left(\frac12 u^2 \right) = 0 \; \Rightarrow \; \pdif{}{x} P(u) + \pdif{}{y} Q(u) = 0$$
-$$\dot\gamma = \frac{Q(u^+) - Q(u^-)}{P(u^+)-P(u^-)} \; \Rightarrow \; \gamma: x=x_0 + \dot \gamma y\; \Rightarrow \; u(x,y) = \begin{case}u^- & \cif x < x_0 + \dot\gamma y \\ u^+ & \cif x > x_0 + \dot\gamma y\end{case}$$
+$$\pdif{}{x} \left( \frac{u^2}{2} \right) + \pdif{}{y} u = 0 \; \Rightarrow \; \pdif{}{x} P(u) + \pdif{}{y} Q(u) = 0$$
+$$\dot\gamma = \frac{P(u^+) - P(u^-)}{Q(u^+)-Q(u^-)} \; \Rightarrow \; \gamma: x=x_0 + \dot \gamma y\; \Rightarrow \; u(x,y) = \begin{case}u^- & \cif x < x_0 + \dot\gamma y \\ u^+ & \cif x > x_0 + \dot\gamma y\end{case}$$
 
 \section{Second-Order PDE}
 
@@ -203,14 +203,14 @@ $$\tilde{D}_\text{hyp} = \begin{cmatrix}0&1\\1&0\end{cmatrix}, \quad \tilde{D}_\
 		Elliptic  : & $A(\xi,\eta) = a \xi_x^2 + 2 b \xi_x \xi_y + c \xi_y^2 = 1$ \\
 							  & $C(\xi,\eta) = a \eta_x^2 + 2 b \eta_x \eta_y + c \eta_y^2 = 1$ \\
 							  & $B(\xi,\eta) = a \xi_x \eta_x + b (\xi_x \eta_y + \xi_y \eta_x) + c \xi_y \eta_y = 0$\\ \bottomrule
-		Hint:				& $\xi_x^2 + 2 \xi_x \xi_y + \xi_y^2 =0 \Rightarrow \xi_x = 1, \; \xi_y = -1 \Rightarrow t = x - y $ \\
+		Hint:				& $\xi_x^2 + 2 \xi_x \xi_y + \xi_y^2 =0 \Rightarrow \xi_x = 1, \; \xi_y = -1 \Rightarrow \xi = x - y $ \\
 		Requirement:& The determinant of the jakobian matrix cannot vanish.
  	\end{tabular}
 \end{center}
 
 \item Apply this transformation to write down the canonical form (chain rule):
 
-$$w(\xi,\eta) = u\left(x(\xi,\eta),y(\xi,\eta)\right) \qquad u(x,y) = w\left(t(x,y),s(x,y)\right)$$
+$$w(\xi,\eta) = u\left(x(\xi,\eta),y(\xi,\eta)\right) \qquad u(x,y) = w\left(\xi(x,y),\eta(x,y)\right)$$
 $$u_x = w_t \xi_x + w_s \eta_x \qquad u_y = w_t \xi_y + w_s \eta_y$$
 $$u_{xx} = w_{\xi\xi} \xi_x^2 + 2 w_{\xi\eta} \xi_x \eta_x + w_{\eta\eta} \eta_x^2 + w_t t_{xx} + w_s s_{xx} $$
 $$u_{yy} = w_{\xi\xi} \xi_y^2 + 2 w_{\xi\eta} \xi_y \eta_y + w_{\eta\eta} \eta_y^2 + w_t t_{yy} + w_s s_{yy} $$
@@ -224,7 +224,7 @@ $$u_{xy} = w_{\xi\xi} \xi_x \xi_y + w_{\xi\eta} (\xi_x \eta_y + \xi_y \eta_x) + 
 			Hyperbolic:
 		\end{tabular} & 
 		\begin{mtabular}{c}
-			$w_{\xi\eta}= 0 \; \Rightarrow \; w(\xi,\eta) = F(t) + G(s)$
+			$w_{\xi\eta}= 0 \; \Rightarrow \; w(\xi,\eta) = F(\xi) + G(\eta)$
 		\end{mtabular} \\ \midrule
 		\begin{tabular}{c}
 			Parabolic:
@@ -514,28 +514,61 @@ $$R_n(r) = C_n r^n + D_n r^{-n}, \ \forall n \in \mathbb{N}, \qquad R_0(r) = R_0
 
 \subsection{Ordinary Differential Equation ODE}
 
-\subsubsection{linear first order ODE}
+\subsubsection{General Solutions}
 
-%$$\frac{dx}{dt} = a(t) x + b(t)$$
-%$$x(t) = C e^{A(t)} + e^{A(t)} \cdot \int_{0}^{t} e^{-A(\tau)} b(\tau) d\tau \qquad \text{where} \quad A(t) = \int_{0}^{t}a(\tau)d\tau$$
-Solve the ODE: $u'(x) + \lambda u(x) = f(x)$.
-First, solve for the \textbf{homogeneous} solution: $u_h(x) = A e^{-\lambda x}$.
-For the \textbf{particular} solution, use the following ansatz:
 \begin{itemize}
-	\item If $f(x)$ is a polynomial of degree $n$, then $u_p(x)$ is also a polynomial of degree $n$. 
-	\item If $f(x) = b e^{k x}$, then $u_p(x) = B e^{k x}$. 
-	\item If $f(x) = b \cos(k x)$ or $f(x) = b \sin(k x)$, then $u_p(x) = B \cos(k x) + C \sin (k x)$ 
+
+\item The solution to the first order linear ODE $y' + p(x) y = q(x)$ is:
+$$y(x) = e^{P(x)} \left( \int q(x) e^{P(x)} dx + C \right) \quad \text{width} \quad P(x) = \int_{0}^{x} p(\tilde x) d\tilde x$$
+
+\item The solution of the second order linear ODE $y'' + \lambda y = 0$ is:
+$$y(x) = \begin{cases} \alpha e^{\sqrt{-\lambda} x} + \beta e^{\sqrt{-\lambda} x} = \tilde \alpha \cosh \left( \sqrt{-\lambda} x \right) +\tilde \beta \sinh \left( \sqrt{-\lambda} x \right) & \lambda < 0\\
+\alpha + \beta x & \lambda = 0 \\ \alpha \cos \left( \sqrt{\lambda} x \right) + \beta \sin \left( \sqrt{\lambda} x \right) & \lambda > 0 \end{cases}$$
+
+\item The solution to the following Euler (equidimensional) equation is:
+$$A x'2 y'' + B x y' + C y = 0 \qquad A r_{1,2}(r_{1,2}-1) + B r_{1,2} + C = 0$$
+$$y(x) = \begin{cases}
+\alpha x^{r_1} + \beta x^{r_2} & r_1, \ r_2 \in \mathbb{R},\  r_1 \neq r_2 \\
+\alpha x^r + \beta x^r \ln x & r_1, \ r_2 \in \mathbb{R}, \ r_1 = r_2 = r \\
+\alpha x^\lambda \cos \left( \mu \ln x \right) +\beta x^\lambda \sin \left( \mu \ln x \right) & r_1 = \lambda + i \mu \in \mathbb{C}
+\end{cases}$$
+
 \end{itemize}
-Finally, the solution to the equation is: $u(x) = u_h(x) + u_p(x)$
 
 \subsubsection{Nonlinear first order ODE}
 
 $$\frac{du}{dx} = f(u) \;\Rightarrow\; \frac{1}{f(u)} du = 1 dx \;\Rightarrow\; \int \frac{1}{f(u)} du = \int 1 dx $$
 
+\subsubsection{Higher Order: Method of characteristics}
+
+$$y^{(n)} + \alpha_{n-1} y^{(n-1)} + \cdots +  \alpha_1 y' + \alpha_0 y = f(x)$$
+
+First, we try to find the homogeneous solution $y_h(x)$, where $f(x) = 0$
+
+$$\lambda^n + \alpha_{n-1} \lambda^{n-1} + \cdots + \alpha_1 \lambda + \alpha_0 = 0 \ \Rightarrow \ (\lambda - \lambda_1) (\lambda - \lambda_2) \cdots (\lambda - \lambda_n)$$
+
+To write down the solution, we need to know the multiplicity of a root. If a root is unique, we can just add a exponential. If there are only real roots which are all different, we can write:
+$$y_h(x) = C_1 e^{\lambda_1 x} + C_2 e^{\lambda_2 x} + C_3 e^{\lambda_3 x} + \cdots + C_n e^{\lambda_n x}$$
+
+If we have multiple roots that are the same, we need to multiply the second exponential factor by $x$, the third by $x^2$ and so on. 
+$$y_h(x) = C_1 e^{-\lambda x} + C_2 x e^{-\lambda x} + C_3 x^2 e^{-\lambda x} \cdots$$
+
+If we have two complex roots, e.g. $\lambda = a + ib$, then we write the following:
+$$y_h(x) = C_1 e^{a t} \cos(bt) + C_2 e^{a t} \sin(bt)$$ 
+
+For the particular solution $y_p$, we use the following ansatz:
+\begin{itemize}
+	\item If $f(x)$ is a polynomial of degree $n$, then $u_p(x)$ is also a polynomial of degree $n$. 
+	\item If $f(x) = b e^{k x}$, then $u_p(x) = B e^{k x}$. 
+	\item If $f(x) = b \cos(k x)$ or $f(x) = b \sin(k x)$, then $u_p(x) = B \cos(k x) + C \sin (k x)$ 
+\end{itemize}
+After substituting these into the equation and solving it, we get $y_p(x)$. Finally, the solution to the problem is: $y(x) = y_h(x) + y_p(x)$
+
+
 \subsection{Fourier series}
 
 $$f(x) = a_0 + \sum_{n=1}^{\infty} a_n \cos \frac{n\pi x}{L} + b_n \sin \frac{n\pi x}{L} $$
-$$a_n = \frac{2}{L} \int_{0}^{L} f(x) \cos \frac{n \pi x}{L} \qquad b_n = \frac{2}{L} \int_0^L f(x) \sin \frac{n \pi x}{L} \qquad a_0 = \frac{1}{L}$$
+$$a_n = \frac{2}{L} \int_{0}^{L} f(x) \cos \frac{n \pi x}{L} \qquad b_n = \frac{2}{L} \int_0^L f(x) \sin \frac{n \pi x}{L} \qquad a_0 = \frac{1}{L} \int_{0}^{L} f(x) dx$$
 
 \subsection{Trigonometry}
 {\small \centering
@@ -550,10 +583,110 @@ $$a_n = \frac{2}{L} \int_{0}^{L} f(x) \cos \frac{n \pi x}{L} \qquad b_n = \frac{
 	$\cos(\alpha \pm \beta)$&$ = $&$\cos \alpha \cos \beta \mp \sin \alpha \sin \beta$ \\
 	$2\sin \alpha \sin \beta$&$=$&$\cos(\alpha-\beta) - \cos(\alpha + \beta)$ &
 	$2\cos \alpha \cos \beta$&$=$&$\cos(\alpha-\beta) + \cos(\alpha + \beta)$ \\
-	
+	$\sin \alpha + \sin \beta$&$=$&$2 \sin \frac{\alpha + \beta}{2} \cos \frac{\alpha - \beta}{2}$&
+	$\cos \alpha + \cos \beta$&$=$&$2 \cos \frac{\alpha + \beta}{2} \cos \frac{\alpha - \beta}{2}$\\
 \end{tabular}
 }
+\begin{center}
+	\begin{tabular}{c}
+	$\int x^n \sin ax \ dx = -\frac{x^n}{a} \cos ax + \frac{n}{a} \int x^{n-1} \cos ax \ dx$ \\
+	$\int x^n \cos ax \ dx = \frac{x^n}{a} \sin ax - \frac{n}{a} \int x^{n-1} \sin ax \ dx$ \\
+	$\int e^{ax} \sin bx \ dx = \frac{e^{ax}}{a^2 + b^2} \left( a \sin bx - b \cos bx \right)$ \\
+	$\int e^{ax} \cos bx \ dx = \frac{e^{ax}}{a^2 + b^2} \left( a \cos bx + b \sin bx \right)$ \\
+	\end{tabular}
+\end{center}
 
+\subsection{Operators}
+
+\begin{center}
+	\begin{mtabular}{c}
+		$\fmm \nabla u = \grad u = \begin{pmatrix} \pdif{}{x} & \pdif{}{y} & \pdif{}{z}  \end{pmatrix} u$ \\
+		$\fmm \divergence \vec u = \nabla \vec u = \begin{pmatrix} \pdif{}{x} & \pdif{}{y} & \pdif{}{z} \end{pmatrix} \begin{pmatrix} u_x & u_y & u_z	\end{pmatrix}^\intercal = \pdif{u_x}{x} + \pdif{u_y}{y} + \pdif{u_z}{z}$\\
+		$\fmm \curl \vec u = \nabla \times \vec u = \left( \pdif{u_z}{y} - \pdif{u_y}{z} \right) \vec e_x + \left( \pdif{u_x}{z} - \pdif{u_z}{x} \right) \vec e_y + \left( \pdif{u_y}{x} - \pdif{u_x}{y} \right) \vec e_z $\\
+		$\fmm \Delta u = \nabla^2 u = \divergence(\nabla u) =  \left(\pdiff{}{x} + \pdiff{}{y} + \pdiff{}{z}\right) u$
+	\end{mtabular}
+\end{center}
+
+\subsubsection{Differential Operators in Polar Coordinates}
+
+We use the notation $e_r$ and $e_\theta$ to denote unit vectors in radial and angular direction, respectively, and $e_z$ to denote a unit vector in the z direction. A vector $\vec u$ is expressed as $\vec u = u_r e_r + u_\theta e_\theta$. We also use $V(r,\theta)$ to denote a scalar function.
+
+\begin{tabular}{cc}
+	\begin{tabular}{c}
+		\tdplotsetmaincoords{70}{120}
+		\begin{tikzpicture}[tdplot_main_coords, scale=3]
+			\draw[->] (0,0,0) -- (0,0.5,0) node[right] {$y$};
+			\draw[->] (0,0,0) -- (0,0,0.5) node[above] {$z$};
+			\draw[->] (0,0,0) -- (0.8,0,0) node[below left] {$x$};
+			\draw[fill=black] (0.8,0.8,0.8) circle (0.03cm);
+			\draw[->] (0,0,0) -- node[pos=0.5, right, yshift=0.1cm]{$r$} (0.8, 0.8, 0);
+			\draw[dashed] (0.8,0.8,0) -- node[pos=0.5, right] {$z$} (0.8,0.8,0.8);
+			\draw (0.6,0,0) arc (0:45:0.6);
+			\draw (0.3,0.1,0) node{$\theta$};
+		\end{tikzpicture}
+	\end{tabular} &
+	\begin{mtabular}{l}
+		$\fmm \nabla V = \pdif{V}{r} e_r + \frac{1}{r} \pdif{V}{\theta} e_\theta$\\
+		$\fmm \nabla \cdot \vec u = \frac{1}{r} \pdif{(ru_r)}{r} + \frac{1}{r} \pdif{u_\theta}{\theta}$\\
+		$\fmm \nabla \times \vec u = \left( \frac{1}{r} \pdif{(ru_\theta)}{r} - \frac{1}{r} \pdif{u_r}{\theta} \right) e_z$\\
+		$\fmm \Delta V = \vec \nabla \cdot \vec \nabla V = \pdiff{V}{r} + \frac{1}{r} \pdif{V}{r} + \frac{1}{r^2} \pdiff{V}{\theta}$
+	\end{mtabular}
+\end{tabular}
+
+\subsubsection{Differential Operators in Spherical Coordinates}
+
+We use the notation $e_r$, $e_\theta$ and $e_\phi$ to denote unit vectors in the radial, vertical angular direction, and horizontal angular direction, respectively. A vector $\vec u$ is expressed as $\vec u = u_r e_r + u_\theta e_\theta + u_\phi e_\phi$. We also use $V(r, \theta, \phi)$ to denote a scalar function. 
+
+
+\begin{tabular}{cc}
+	\begin{tabular}{c}
+		\tdplotsetmaincoords{70}{120}
+		\begin{tikzpicture}[tdplot_main_coords, scale=3]
+		\draw[->] (0,0.2,0) -- (0,0.5,0) node[right] {$y$};
+		\draw[->] (0,0,0) -- (0,0,0.5) node[above] {$z$};
+		\draw[->] (0,0,0) -- (0.8,0,0) node[below left] {$x$};
+		\draw[fill=black] (0.8,0.8,0.8) circle (0.03cm);
+		\draw[->] (0,0,0) -- node[pos=0.6, above]{$r$} (0.8,0.8,0.8);
+		\draw [dashed] (0,0,0) -- (0.8,0.8,0) -- (0.8,0.8,0.8);
+		\draw (0.6,0,0) arc (0:45:0.6);
+		\draw (0.3,0.1,0) node{$\theta$};
+		\begin{scope}[rotate around x=90, rotate around y=45]
+			\draw (0.7,0,0) arc (0:35:0.7);
+			\draw (0.35,0.12,0) node{$\phi$};
+		\end{scope}
+		\end{tikzpicture}
+	\end{tabular} &
+	\begin{mtabular}{l}
+		$\fmm \nabla V = \pdif{V}{r} e_r + \frac{1}{r} \pdif{V}{\theta} e_\theta + \frac{1}{r \sin \theta} \pdif{V}{\phi} e_\phi$ \\
+		$\fmm \Delta V = \frac{1}{r^2} \pdif{}{r} \left(r^2 \pdif{V}{r}\right) + \frac{1}{r^2\sin \phi} \pdif{}{\phi} \left( \sin \phi \pdif{V}{\phi} \right)$ \\
+		$\fmm \qquad \ \  + \ \frac{1}{r^2\sin^2 \phi} \pdiff{V}{\theta}$
+	\end{mtabular}
+\end{tabular}
+
+\subsection{Integration Formulas}
+
+\begin{tabular}{cc}
+	\begin{tabular}{c}
+		\begin{tikzpicture}[scale=1.4]
+			\draw plot[smooth, tension=0.7] coordinates {(0,0) (1,0) (1,1.2) (-0.6,0.5) (0,0)};
+			\draw (0.5,0.5) node {$D$};
+			\draw [->] (1.15,0.3) -- ++(0.45,-0.09) node[right] {$\vec{n}$};
+		\end{tikzpicture}
+	\end{tabular} &
+	\begin{mtabular}{c}
+		$\fmm \iint_D \nabla u \ dx \ dy = \oint_{\partial D} u \cdot \vec{n} \ ds$	\\
+		$\fmm \iint_D \left( Q_x - P_y \right) dx \ dy = \oint_{\partial D}\left( P \ dx + Q \ dy \right)$ \\
+		$\fmm \iint_D (u \Delta u + \nabla u \cdot \nabla v) dx \ dy = \oint_{\partial D} v \pdif{u}{\vec n} \ ds$ \\
+		$\fmm \iint_D \left( v \Delta u - u \Delta v \right) dx \ dy = \oint_{\partial D}\left( v \pdif{u}{\vec n} - u \pdif{v}{\vec n} \right) ds$
+	\end{mtabular}
+\end{tabular}
+$$\pdif{}{t} \int_{a(t)}^{b(t)} G(\tilde x, t) d \tilde x = G(b(t),t) b'(t) - G(a(t),t) a'(t) + \int_{a(t)}^{b(t)} \pdif{G(\tilde x, t)}{t} \ d\tilde x$$
+
+\subsection{Green's Identities}
+
+	$$\Delta u =\divergence(\nabla u) \ \Rightarrow \ \iint_D \Delta u \ dx \ dy =\iint_D \divergence(\nabla u)\ dx \ dy = \oint_{\partial D} \nabla u \cdot \vec{n} \ ds $$
+	$$\iint_D \left(u \Delta v + v \Delta u\right) dx \ dy = \oint_{\partial D} \left(u \nabla v \cdot \vec n + v \nabla u \cdot v \right) ds$$
+	$$\divergence(v \nabla u) = \nabla v \nabla u + v \Delta u \ \Rightarrow \ \iint_D \nabla v \nabla u = \oint_{\partial D} v \nabla u \cdot \vec{n} \ ds - \iint_D v \Delta u \ dx \ dy$$
 \end{twocolumn}
 
 \end{document}
