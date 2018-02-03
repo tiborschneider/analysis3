@@ -1,6 +1,6 @@
 %%This is a very basic article template.
 %%There is just one section and two subsections.
-\documentclass{article}
+\documentclass[a4paper]{article}
 
 \input{fs.tex}
 %Title of Document
@@ -37,14 +37,6 @@ The Set $C^k(D)$ contains all functions that are $k$-times differential in $D$.
 A Function in the Set $C^k(D)$, that satisfies a PDE of order $k$ is called a \textbf{strong} (or \textbf{classical}) \textbf{solution}. 
 If the solution is not $k$ times differential, it is called a \textbf{weak solution}.
 
-\subsection{Differential Operators}
-
-The operation of an operator $L$ on a function $u$ is denoted by $L[u]$
-A differential Operator is defined by partial derivatives of functions. 
-Example:
-
-$$\text{Laplace Operator:} \quad \Delta = \left[\sum_{i=1}^{n} \frac{\partial^2}{\partial x_i^2}\right]$$
-
 A \textbf{linear operator} satisfies the following equation:
 
 $$L[\alpha_1 u_1 + \alpha_2 u_2] = \alpha_1 L[u_1] + \alpha_2 L[u_2]$$
@@ -72,6 +64,7 @@ Boundary conditions are conditions on the behavior of the solution (or it's deri
 	
 \end{itemize}
 
+\pagebreak
 \section{First-Order PDE}
 
 $$F(x_1,x_2,\ldots, x_n, u, u_{x_1}, u_{x_2}, \ldots u_{x_n}) = 0$$
@@ -101,8 +94,7 @@ $$\pdiff{x}{t} = -\alpha x \: \Rightarrow \: x(t,s) = C_1(s) \cos \alpha t + C_2
 \item Substitute these solutions into the initial condition to get $f_i(s)$. If some $f_i(s)$ are undefined, normalize the equation for simplicity.
 $$\ex{x(t,s) = t + s \qquad y(t,s) = t \qquad u(t,s) = f(s) e^{2t} + t - f(s), \, f(s) = \frac{1}{2}}$$
 
-\item Solve for $(t,s)$ as a function of $(x,y)$ and write the solution $u$:
-$$\ex{t = y, \qquad s = x-y \qquad u(x,y) = \frac{1}{2} e^{2y} + y - \frac{1}{2}}$$
+\item Solve for $(t,s)$ as a function of $(x,y)$ and write the solution $u$.
 \end{enumerate}
 
 
@@ -135,7 +127,7 @@ $$x(t,s) = s + t \cdot h(s), \quad y(t,s) = t, \quad u(t,s) = h(s) \;\Rightarrow
 
 The solution is not well defined at points where characteristic curves intersect. From an algebraic perspective:
 
-$$u_x = \frac{h'}{1 + y h'} \qquad y_c = -\frac{1}{\inf \left\{ h'(s) \right\}}$$
+$$u_x = \frac{h'}{1 + y h'} \qquad y_c = \inf \left\{ -\frac{1}{h'(s)} \right\}$$
 
 The classical solution is not defined for $y > y_c$. To extend the solution beyond $y_c$. The solution $u$ has discontinuities at $u(\gamma(y),y)$. $u^-$ and $u^+$ is the value of $u$ when we approach the curve $\gamma$ from the left and from the right, respectively. Then, we get:
 
@@ -477,8 +469,7 @@ $$\Delta u = 0 \qquad u(x,y) = X(x) \cdot Y(y) \ \Rightarrow \ \frac{X''(x)}{X(x
 
 $$u(x,y) = \sum_n X_n(x) = \sum_n A_n \sinh\left(\frac{n\pi}{d} x\right) + B_n \sinh\left(\frac{n\pi}{d} (x-b)\right)$$
 
-Using this basis ($\sinh$), we have achieved that the term with $A_n$ is zero at $x=0$ and the term $B_n$ is zero at $x = b$. To calculate the constants:
-
+{\footnotesize
 \begin{tabular}{C{.95\columnwidth}}
 	\textbf{Dirichlet}:\\
 	$\fmm f(x) = u(0,y) = \sum_n B_n \sinh\left(-\frac{n\pi}{d} b\right) \sin\left(\frac{n\pi}{d} y\right) = \sum_n \beta_n \sin\left(\frac{n\pi}{d} y\right)$ \\
@@ -490,6 +481,7 @@ Using this basis ($\sinh$), we have achieved that the term with $A_n$ is zero at
 	$\fmm \beta_n = \frac{2}{d} \int_{0}^{d} f(y) \cos\left(\frac{n\pi}{d} y\right) dy, \quad \alpha_n = \frac{2}{d} \int_0^b g(y) \cos\left(\frac{n\pi}{d} y\right)dy$ \\ 
 	
 \end{tabular}
+}
 
 \subsubsection{Discontinuity on the boundary}
 
@@ -527,7 +519,7 @@ $$R_n(r) = C_n r^n + D_n r^{-n}, \ \forall n \in \mathbb{N}, \qquad R_0(r) = R_0
 $$y(x) = e^{P(x)} \left( \int q(x) e^{P(x)} dx + C \right) \quad \text{width} \quad P(x) = \int_{0}^{x} p(\tilde x) d\tilde x$$
 
 \item The solution of the second order linear ODE $y'' + \lambda y = 0$ is:
-$$y(x) = \begin{cases} \alpha e^{\sqrt{-\lambda} x} + \beta e^{\sqrt{-\lambda} x} = \tilde \alpha \cosh \left( \sqrt{-\lambda} x \right) +\tilde \beta \sinh \left( \sqrt{-\lambda} x \right) & \lambda < 0\\
+$$y(x) = \begin{cases} \alpha e^{\sqrt{-\lambda} x} + \beta e^{-\sqrt{-\lambda} x} = \tilde \alpha \cosh \left( \sqrt{-\lambda} x \right) +\tilde \beta \sinh \left( \sqrt{-\lambda} x \right) & \lambda < 0\\
 \alpha + \beta x & \lambda = 0 \\ \alpha \cos \left( \sqrt{\lambda} x \right) + \beta \sin \left( \sqrt{\lambda} x \right) & \lambda > 0 \end{cases}$$
 
 \item The solution to the following Euler (equidimensional) equation is:
@@ -576,21 +568,27 @@ $$f(x) = a_0 + \sum_{n=1}^{\infty} a_n \cos \frac{n\pi x}{L} + b_n \sin \frac{n\
 $$a_n = \frac{2}{L} \int_{0}^{L} f(x) \cos \frac{n \pi x}{L} \qquad b_n = \frac{2}{L} \int_0^L f(x) \sin \frac{n \pi x}{L} \qquad a_0 = \frac{1}{L} \int_{0}^{L} f(x) dx$$
 
 \subsection{Trigonometry}
-{\small \centering
-\begin{tabular}{r<{\hspace{-8pt}}c<{\hspace{-8pt}}l|r<{\hspace{-8pt}}c<{\hspace{-8pt}}l}
-	$\sin(2\alpha)$&$ = $&$2 \sin \alpha \cos \alpha$ &
-	$\cos(2\alpha)$&$ = $&$\cos^2 \alpha - \sin^2 \alpha$ \\
-	$\sin^2 \alpha$&$ = $&$\frac12 \left(1-\cos 2\alpha\right)$ &
-	$\cos^2 \alpha$&$ = $&$\frac12 \left(1+\cos 2\alpha\right)$ \\
-	$\sin^3 \alpha$&$ = $&$\frac14 \left(3\sin \alpha - \sin 3\alpha\right)$ &
-	$\cos^3 \alpha$&$ = $&$\frac14 \left(3\cos \alpha + \cos 3\alpha\right)$ \\
-	$\sin(\alpha \pm \beta)$&$ = $&$\sin \alpha \cos \beta \pm \cos \alpha \sin \beta$ & 
-	$\cos(\alpha \pm \beta)$&$ = $&$\cos \alpha \cos \beta \mp \sin \alpha \sin \beta$ \\
-	$2\sin \alpha \sin \beta$&$=$&$\cos(\alpha-\beta) - \cos(\alpha + \beta)$ &
-	$2\cos \alpha \cos \beta$&$=$&$\cos(\alpha-\beta) + \cos(\alpha + \beta)$ \\
-	$\sin \alpha + \sin \beta$&$=$&$2 \sin \frac{\alpha + \beta}{2} \cos \frac{\alpha - \beta}{2}$&
-	$\cos \alpha + \cos \beta$&$=$&$2 \cos \frac{\alpha + \beta}{2} \cos \frac{\alpha - \beta}{2}$\\
-\end{tabular}
+{\footnotesize
+	\begin{tabular}{r<{\hspace{-8pt}}c<{\hspace{-8pt}}lr<{\hspace{-8pt}}c<{\hspace{-8pt}}l}
+		$\sin(2\alpha) $&$=$&$ 2 \sin \alpha \cos \alpha$ &
+		$\cos(2\alpha) $&$=$&$ \cos^2 \alpha - \sin^2 \alpha$ \\
+		$\sin(\alpha \pm \beta)$&$=$&$\sin(\alpha) \cos(b) \pm \cos(\alpha) \sin(b)$ &
+		$\cos(\alpha \pm \beta)$&$=$&$\cos(\alpha) \cos(b) \mp \sin(\alpha) \sin(b)$ \\
+		$\sin(\alpha)\pm \sin(\beta)$&$=$&$2 \sin \frac{\alpha \pm \beta}{2} \cos \frac{\alpha \mp \beta}{2}$ &
+		$\cos(\alpha)+\cos(\beta)$&$=$&$2 \cos \frac{\alpha+\beta}{2} \cos\frac{\alpha-\beta}{2}$ \\
+		$\cos(\alpha)-\cos(\beta)$&$=$&$-2 \sin \frac{\alpha+\beta}{2} \sin\frac{\alpha-\beta}{2}$ &
+		$\sin(\alpha)\sin(\beta)$&$=$&$\frac{1}{2}(\cos(\alpha-\beta)-\cos(\alpha+\beta))$ \\
+		$\cos(\alpha)\cos(\beta)$&$=$&$\frac{1}{2}(\cos(\alpha-\beta)+\cos(\alpha+\beta))$ &
+		$\sin(\alpha)\cos(\beta)$&$=$&$\frac{1}{2}(\sin(\alpha-\beta)+\sin(\alpha+\beta))$ \\
+		$\sin^2 \alpha $&$=$&$ \frac12 \left(1-\cos 2\alpha\right)$ &
+		$\cos^2 \alpha $&$=$&$ \frac12 \left(1+\cos 2\alpha\right)$ \\
+		$\sin^3 \alpha $&$=$&$ \frac14 \left(3\sin \alpha - \sin 3\alpha\right)$ &
+		$\cos^3 \alpha $&$=$&$ \frac14 \left(3\cos \alpha + \cos 3\alpha\right)$ \\
+		$\frac{\sin 2\alpha}{\sin \alpha} $&$=$&$ 2 \cos \alpha$ &
+		$\sin \alpha \cos \alpha $&$=$&$ \frac12 \sin 2\alpha$ \\
+		$c^2 $&$=$&$ a^2 + b^2 - 2 a b \cos \gamma$ &
+		$\frac{a}{\sin \alpha} = \frac{b}{\sin \beta} $&$=$&$ \frac{c}{\sin \gamma} = 2r = \frac{u}{\pi}$ \\
+	\end{tabular}
 }
 \begin{center}
 	\begin{tabular}{c}
@@ -601,6 +599,31 @@ $$a_n = \frac{2}{L} \int_{0}^{L} f(x) \cos \frac{n \pi x}{L} \qquad b_n = \frac{
 	\end{tabular}
 \end{center}
 
+\subsection{Integration}
+
+\begin{mtabular}{rl}
+Partial integration & $\fmm \int_a^b u(x) v'(x) dx = u(x) v(x) \big|_a^b - \int_a^b u'(x) v(x) dx$\\
+Chain Rule & $\fmm \int_a^b f(x(t)) x'(t) dt = \int_{x(a)}^{x(b)} f(x) dx = F(x(t)) \big|_{x(a)}^{x(b)}$\\
+Power rule & $\fmm \int x^n dx = \frac{1}{n+1} \cdot x^{n+1} + c, \quad n \neq -1$ \\
+Inverse power rule & $\fmm \int \frac{1}{x^n} dx = \frac{1}{-n+1} \cdot \frac{1}{x^{n-1}} + c, \quad n \neq 1$ \\
+$x^{-1}$ rule & $\fmm \int \frac{1}{x} dx = \ln \abs{x} + c, \qquad \int \frac{1}{ax + b} dx = \frac{1}{a} \ln \abs{ax + b} + c$ \\
+Exponential rule & $\fmm \int e^x dx = e^x + c \qquad \int a^x dx = \frac{a^x}{\ln x} + c$ \\
+Logarithm rule & $\fmm \int \ln x dx = x \left(\ln x -1\right) + c$ \\
+\end{mtabular}
+
+\subsection{Differentiation}
+\begin{center}  
+\begin{mtabular}{rl}
+	Product rule & $\fmm (f g)' = f' g + f g'$ \\
+	Quotient rule & $\fmm \left(\frac{f}{g}\right)' = \frac{f' g - f g'}{g^2}$ \\
+	Chain rule & $\fmm \frac{d}{dx} \left(f\left(g(x)\right)\right) = f'\left(g(x)\right) g'(x)$ \\
+	Power rule & $\fmm \frac{d}{dx} \left(x^n \right) = n x^{n-1}$ \\
+	Inverse power rule& $\fmm \frac{d}{dx} \left(\frac{1}{x^n}\right) = \frac{-n}{x^{n+1}}$ \\
+	Exponential rule& $\fmm \frac{d}{dx} \left(e^{g(x)}\right) = g'(x) e^{g(x)}$ \\
+	Logarithm rule& $\fmm \frac{d}{dx} \left(\ln g(x)\right) = \frac{g'(x)}{g(x)}$ \\
+\end{mtabular}
+\end{center}
+
 \subsection{Operators}
 
 \begin{center}
@@ -608,10 +631,11 @@ $$a_n = \frac{2}{L} \int_{0}^{L} f(x) \cos \frac{n \pi x}{L} \qquad b_n = \frac{
 		$\fmm \nabla u = \grad u = \begin{pmatrix} \pdif{}{x} & \pdif{}{y} & \pdif{}{z}  \end{pmatrix} u$ \\
 		$\fmm \divergence \vec u = \nabla \vec u = \begin{pmatrix} \pdif{}{x} & \pdif{}{y} & \pdif{}{z} \end{pmatrix} \begin{pmatrix} u_x & u_y & u_z	\end{pmatrix}^\intercal = \pdif{u_x}{x} + \pdif{u_y}{y} + \pdif{u_z}{z}$\\
 		$\fmm \curl \vec u = \nabla \times \vec u = \left( \pdif{u_z}{y} - \pdif{u_y}{z} \right) \vec e_x + \left( \pdif{u_x}{z} - \pdif{u_z}{x} \right) \vec e_y + \left( \pdif{u_y}{x} - \pdif{u_x}{y} \right) \vec e_z $\\
-		$\fmm \Delta u = \nabla^2 u = \divergence(\nabla u) =  \left(\pdiff{}{x} + \pdiff{}{y} + \pdiff{}{z}\right) u$
+		$\fmm \Delta u = \nabla^2 u = \divergence(\nabla u) =  \left(\pdiff{}{x} + \pdiff{}{y} + \pdiff{}{z}\right) u = \sum_{i=1}^n \pdiff{u}{x_i}$
 	\end{mtabular}
 \end{center}
 
+\pagebreak
 \subsubsection{Differential Operators in Polar Coordinates}
 
 We use the notation $e_r$ and $e_\theta$ to denote unit vectors in radial and angular direction, respectively, and $e_z$ to denote a unit vector in the z direction. A vector $\vec u$ is expressed as $\vec u = u_r e_r + u_\theta e_\theta$. We also use $V(r,\theta)$ to denote a scalar function.
